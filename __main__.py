@@ -1,9 +1,11 @@
+
 import pygame
-from draw.board import Board
+from draw.screen import Screen
 
 def main():
-    screen = pygame.display.set_mode((850, 400))
-    pygame.display.flip()
+    screen = Screen()
+    pg_screen = screen.create_screen()
+
 
     running = True
     while running:
