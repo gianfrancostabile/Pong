@@ -4,7 +4,8 @@ from pygame import *
 from draw.screen import Screen
 from exceptions.excessplayerexception import ExcessPlayerException
 from player import Player
-from draw.bar import Bar_Position
+from draw.bar import Bar
+
 
 def main():
     screen = Screen()
@@ -16,33 +17,31 @@ def main():
     green = (0, 255, 0)
     yellow = (255, 255, 0)
 
-    widthTL = int(width * 0.1)
-    heightTL = int(height * 0.94)
-    form = (widthTL, heightTL, 70, 10)
-    POS_ONE = Bar_Position(1, form, red)
+    width_bar, height_bar = 70, 10
 
-    widthTL = int(width * 0.1)
-    heightTL = int(height * 0.04)
-    form = (widthTL, heightTL, 70, 10)
-    POS_TWO = Bar_Position(1, form, blue)
+    x_bar = int(width * 0.1)
+    y_bar = int(height * 0.94)
+    pos_one = Bar(x_bar, y_bar, width_bar, height_bar, 1, red)
 
-    widthTL = int(width * 0.04)
-    heightTL = int(height * 0.1)
-    form = (widthTL, heightTL, 10, 70)
-    POS_THREE = Bar_Position(1, form, green)
+    x_bar = int(width * 0.1)
+    y_bar = int(height * 0.04)
+    pos_two = Bar(x_bar, y_bar, width_bar, height_bar, 2, blue)
 
-    widthTL = int(width * 0.94)
-    heightTL = int(height * 0.1)
-    form = (widthTL, heightTL, 10, 70)
-    POS_FOUR = Bar_Position(1, form, yellow)
+    x_bar = int(width * 0.04)
+    y_bar = int(height * 0.1)
+    pos_three = Bar(x_bar, y_bar, width_bar, height_bar, 3, green)
+
+    x_bar = int(width * 0.94)
+    y_bar = int(height * 0.1)
+    pos_four = Bar(x_bar, y_bar, width_bar, height_bar, 4, yellow)
 
     player_list = list()
 
     try:
-        player_list.append(Player("Juan", POS_ONE))
-        player_list.append(Player("Pedro", POS_TWO))
-        player_list.append(Player("Luis", POS_THREE))
-        player_list.append(Player("Jorge", POS_FOUR))
+        player_list.append(Player("Juan", pos_one))
+        player_list.append(Player("Pedro", pos_two))
+        player_list.append(Player("Luis", pos_three))
+        player_list.append(Player("Jorge", pos_four))
 
     except ExcessPlayerException as epe:
         print(epe)

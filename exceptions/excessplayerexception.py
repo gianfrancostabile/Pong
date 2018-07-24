@@ -1,4 +1,5 @@
 
+
 class ExcessPlayerException(Exception):
     def __init__(self):
         message = "Only 2 players can play this game."

@@ -1,18 +1,19 @@
 
 import pygame
+from .frame import Frame
 
-class Ball(object):
 
-    def put(self, screen, color, form=None):
-        if not form:
-            width, height = pygame.display.get_surface().get_size()
-            width = int(width / 2)
-            height = int(height / 2)
-            form = (width - 2, height - 2, 5, 5)
-        self.draw(screen, color, form)
+class Ball(Frame):
 
-    def draw(self, screen, color, form):
-        pygame.draw.rect(screen, color, form, 5)
+    def __init__(self, color):
+        width, height = pygame.display.get_surface().get_size()
+        x = int(width / 2)
+        y = int(height / 2)
+
+        super(Ball, self).__init__(x, y, 5, 5, color)
+
+    def draw(self, screen):
+        pygame.draw.rect(screen, self.color, self.get_tuple_format(), 5)
         pygame.display.flip()
 
     def move(self):

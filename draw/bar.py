@@ -1,49 +1,22 @@
 
 import pygame
+from .frame import Frame
 
 
-class Bar_Position(object):
+class Bar(Frame):
 
-    def __init__(self, position, form, color):
+    def __init__(self, x, y, width, height, position, color):
         self.position = position
-        self.form = form
-        self.color = color
+        super(Bar, self).__init__(x, y, width, height, color)
 
+    def move_left(self, screen, object):
+        if not self.is_colliding(object):
+            self.clean(screen)
+            self.x -= 2
+            self.draw(screen)
 
-class Bar(object):
-
-    def __init__(self, position):
-        self.position = position
-
-    def draw(self, screen):
-        pygame.draw.rect(screen, self.position.color, self.position.form, 0)
-        pygame.display.flip()
-
-    def clean(self, screen):
-        pygame.draw.rect(screen, (0, 0, 0), self.position.form, 0)
-        pygame.display.flip()
-
-    def move_left(self, screen):
-        self.clean(screen)
-
-        border_left = self.position.form[0] - 2
-        border_top = self.position.form[1]
-        body_width = self.position.form[2]
-        body_height = self.position.form[3]
-
-        self.position.form = (border_left, border_top, body_width, body_height)
-        self.draw(screen)
-
-    def move_right(self, screen):
-        self.clean(screen)
-
-        border_left = self.position.form[0] + 2
-        border_top = self.position.form[1]
-        body_width = self.position.form[2]
-        body_height = self.position.form[3]
-
-        self.position.form = (border_left, border_top, body_width, body_height)
-        self.draw(screen)
-
-    def get_form(self):
-        return self.position.form
+    def move_right(self, screen, object):
+        if not self.is_colliding(object):
+            self.clean(screen)
+            self.x += 2
+            self.draw(screen)
