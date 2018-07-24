@@ -17,16 +17,16 @@ class Bar(object):
 
     def draw(self, screen):
         pygame.draw.rect(screen, self.position.color, self.position.form, 0)
-        pygame.display.update()
+        pygame.display.flip()
 
     def clean(self, screen):
         pygame.draw.rect(screen, (0, 0, 0), self.position.form, 0)
-        pygame.display.update()
+        pygame.display.flip()
 
     def move_left(self, screen):
         self.clean(screen)
 
-        border_left = self.position.form[0] - 1
+        border_left = self.position.form[0] - 2
         border_top = self.position.form[1]
         body_width = self.position.form[2]
         body_height = self.position.form[3]
@@ -37,10 +37,13 @@ class Bar(object):
     def move_right(self, screen):
         self.clean(screen)
 
-        border_left = self.position.form[0] + 1
+        border_left = self.position.form[0] + 2
         border_top = self.position.form[1]
         body_width = self.position.form[2]
         body_height = self.position.form[3]
 
         self.position.form = (border_left, border_top, body_width, body_height)
         self.draw(screen)
+
+    def get_form(self):
+        return self.position.form

@@ -22,7 +22,7 @@ class Player(object):
             raise ExcessPlayerException
 
     def move_bar(self, screen, key_pressed):
-        if key_pressed[pygame.K_LEFT]:
+        if key_pressed == "LEFT":
             self.bar.move_left(screen)
-        elif key_pressed[pygame.K_RIGHT]:
+        elif key_pressed == "RIGHT":
             self.bar.move_right(screen)

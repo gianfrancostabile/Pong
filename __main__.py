@@ -1,5 +1,6 @@
 
 import pygame
+from pygame import *
 from draw.screen import Screen
 from exceptions.excessplayerexception import ExcessPlayerException
 from player import Player
@@ -50,15 +51,20 @@ def main():
 
     running = True
     while running:
+        keydown_pressed = False
+        key_pressed = None
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
                 pygame.quit()
+                quit()
 
-            key_pressed = pygame.key.get_pressed()
-            if event.type == pygame.KEYDOWN:
-                player_list[0].move_bar(window, key_pressed)
+            elif event.type == KEYDOWN:
+                key_pressed = pygame.key.get_pressed()
+                keydown_pressed = True
 
+        if keydown_pressed:
+            screen.move_player(key_pressed)
 if __name__ == "__main__":
     pygame.init()
     main()
