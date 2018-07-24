@@ -1,5 +1,6 @@
 
 import pygame
+import time
 from exceptions.excessplayerexception import ExcessPlayerException
 from draw.bar import Bar
 
@@ -28,3 +29,4 @@ class Player(object):
         elif key_pressed == "RIGHT":
             corner_right = corners_between[1]
             self.bar.move_right(screen, corner_right)
+        time.sleep(0.0005)

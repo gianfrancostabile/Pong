@@ -9,14 +9,14 @@ class Bar(Frame):
         self.position = position
         super(Bar, self).__init__(x, y, width, height, color)
 
-    def move_left(self, screen, object):
-        if not self.is_colliding(object):
+    def move_left(self, screen, obj):
+        if not self.is_colliding(obj):
             self.clean(screen)
-            self.x -= 2
+            self.x -= 1
             self.draw(screen)
 
-    def move_right(self, screen, object):
-        if not self.is_colliding(object):
+    def move_right(self, screen, obj):
+        if not self.is_colliding(obj):
             self.clean(screen)
-            self.x += 2
+            self.x += 1
             self.draw(screen)

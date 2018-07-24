@@ -1,6 +1,5 @@
 
 import pygame
-from pygame import *
 from draw.screen import Screen
 from exceptions.excessplayerexception import ExcessPlayerException
 from player import Player
@@ -29,11 +28,11 @@ def main():
 
     x_bar = int(width * 0.04)
     y_bar = int(height * 0.1)
-    pos_three = Bar(x_bar, y_bar, width_bar, height_bar, 3, green)
+    pos_three = Bar(x_bar, y_bar, height_bar, width_bar, 3, green)
 
     x_bar = int(width * 0.94)
     y_bar = int(height * 0.1)
-    pos_four = Bar(x_bar, y_bar, width_bar, height_bar, 4, yellow)
+    pos_four = Bar(x_bar, y_bar, height_bar, width_bar, 4, yellow)
 
     player_list = list()
 
@@ -50,20 +49,18 @@ def main():
 
     running = True
     while running:
-        keydown_pressed = False
-        key_pressed = None
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
                 pygame.quit()
                 quit()
 
-            elif event.type == KEYDOWN:
-                key_pressed = pygame.key.get_pressed()
-                keydown_pressed = True
-
-        if keydown_pressed:
+        key_pressed = pygame.key.get_pressed()
+        if key_pressed:
             screen.move_player(key_pressed)
+
+
+
 if __name__ == "__main__":
     pygame.init()
     main()
