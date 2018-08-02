@@ -1,6 +1,5 @@
 
 import pygame
-from pictures import picture
 
 
 class Frame(pygame.sprite.Sprite):
@@ -26,9 +25,7 @@ class Frame(pygame.sprite.Sprite):
         pygame.display.flip()
 
     def is_colliding(self, obj):
-        collision = False
-
-        top_obj, bottom_obj, left_obj, right_obj = 0, 0, 0, 0
+        collision = [False, ""]
         top_this, bottom_this, left_this, right_this = \
             self.y, self.y + self.height, self.x, self.x + self.width
 
@@ -36,18 +33,16 @@ class Frame(pygame.sprite.Sprite):
             top_obj, bottom_obj, left_obj, right_obj = \
                 obj.y, obj.y + obj.height, obj.x, obj.x + obj.width
 
-            if top_obj >= top_this >= bottom_obj or top_obj <= bottom_this <= bottom_obj:
-                if left_obj <= left_this <= right_obj or left_obj <= right_this <= right_obj:
-                    collision = True
-                elif left_this <= left_obj <= right_this and left_this <= right_obj <= right_this:
-                    collision = True
-
-        elif isinstance(obj, tuple):
-            top_obj, right_obj, bottom_obj, left_obj = \
-                obj[0], obj[1], obj[2], obj[3]
-
-            if top_obj >= top_this or right_this >= right_obj or bottom_this >= bottom_obj or left_obj >= left_this:
-                collision = True
-
-
+            if (top_this <= top_obj <= bottom_this or top_this <= bottom_obj <= bottom_this
+                    or (top_obj <= top_this <= bottom_obj and top_obj <= bottom_this <= bottom_obj)) and \
+                (left_this <= left_obj <= right_this or left_this <= right_obj <= right_this
+                    or (left_obj <= left_this <= right_obj and left_obj <= right_this <= right_obj)):
+                if left_obj == right_this:
+                    collision = [True, "Left"]
+                elif right_obj == left_this:
+                    collision = [True, "Right"]
+                elif top_obj == bottom_this:
+                    collision = [True, "Top"]
+                elif bottom_obj == top_this:
+                    collision = [True, "Bottom"]
         return collision

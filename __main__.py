@@ -21,8 +21,14 @@ def main():
             screen.move_player(key_pressed)
 
         screen.move_ball()
-        time.sleep(0.01)
+        out = screen.check_ball_out()
 
+        if out:
+            running = False
+            pygame.quit()
+            quit()
+
+        time.sleep(0.01)
 
 
 if __name__ == "__main__":

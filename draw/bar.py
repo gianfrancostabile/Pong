@@ -1,5 +1,4 @@
 
-import pygame
 from .frame import Frame
 
 
@@ -10,13 +9,13 @@ class Bar(Frame):
         super(Bar, self).__init__(x, y, width, height, color)
 
     def move_left(self, screen, obj):
-        if not self.is_colliding(obj):
+        if not self.is_colliding(obj)[0]:
             self.clean(screen)
             self.x -= 1
             self.draw(screen)
 
     def move_right(self, screen, obj):
-        if not self.is_colliding(obj):
+        if not self.is_colliding(obj)[0]:
             self.clean(screen)
             self.x += 1
             self.draw(screen)

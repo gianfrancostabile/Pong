@@ -1,8 +1,5 @@
 
-import pygame
-import time
 from exceptions.excessplayerexception import ExcessPlayerException
-from draw.bar import Bar
 
 PLAYER_COUNTER = 0
 

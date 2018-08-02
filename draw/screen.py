@@ -1,8 +1,6 @@
 
 import pygame
 import os
-import time
-import random
 from .corner import Corner
 from .ball import Ball
 from .bar import Bar
@@ -69,40 +67,8 @@ class Screen(object):
             player.bar.draw(self.screen)
 
     def move_ball(self):
-        self.ball.clean(self.screen)
-
-        top, right, bottom, left = int(self.height * 0.1), int(self.width * 0.9), int(self.height * 0.9), int(self.width * 0.1)
-        speed_start, speed_end = 2, 4
-        top_ball, bottom_ball, left_ball, right_ball = \
-            self.ball.y, self.ball.y + self.ball.height, self.ball.x, self.ball.x + self.ball.width
-
-        distance_top = top_ball - top
-        distance_right = right - right_ball
-        distance_bottom = bottom - bottom_ball
-        distance_left = left_ball - left
-
-        if speed_end > distance_top > 0 and self.ball.speedY < 0:
-            self.ball.speedY = distance_top
-        elif 0 >= distance_top:
-            self.ball.speedY = random.randint(speed_start, speed_end)
-
-        elif speed_end > distance_right > 0 and self.ball.speedX > 0:
-            self.ball.speedX = distance_right
-        elif 0 >= distance_right:
-            self.ball.speedX = (-1) * random.randint(speed_start, speed_end)
-
-        elif speed_end > distance_bottom > 0 and self.ball.speedY > 0:
-            self.ball.speedY = distance_bottom
-        elif 0 >= distance_bottom:
-            self.ball.speedY = (-1) * random.randint(speed_start, speed_end)
-
-        elif speed_end > distance_left > 0 and self.ball.speedX < 0:
-            self.ball.speedX = distance_left
-        elif 0 >= distance_left:
-            self.ball.speedX = random.randint(speed_start, speed_end)
-
-        self.ball.move()
-        self.ball.draw(self.screen)
+        frames_collision = self.players + self.corners
+        self.ball.move(self.screen, frames_collision)
 
     def move_player(self, key_pressed):
         player = None
@@ -140,3 +106,15 @@ class Screen(object):
                 if corner.x != 0:
                     corners_between.append(corner)
         return corners_between
+
+    def check_ball_out(self):
+        out = False
+        if 0 > (self.ball.x + self.ball.width):
+            out = True
+        elif self.ball.x > self.width:
+            out = True
+        elif 0 > (self.ball.y + self.ball.height):
+            out = True
+        elif self.ball.y > self.height:
+            out = True
+        return out
