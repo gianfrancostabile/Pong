@@ -9,13 +9,23 @@ class Bar(Frame):
         super(Bar, self).__init__(x, y, width, height, color)
 
     def move_left(self, screen, obj):
-        if not self.is_colliding(obj)[0]:
-            self.clean(screen)
+        self.clean(screen)
+        i = 0
+        while i < 4:
+            collision = obj.is_colliding(self)
+            if collision[0]:
+                break
             self.x -= 1
-            self.draw(screen)
+            i += 1
+        self.draw(screen)
 
     def move_right(self, screen, obj):
-        if not self.is_colliding(obj)[0]:
-            self.clean(screen)
+        self.clean(screen)
+        i = 0
+        while i < 4:
+            collision = obj.is_colliding(self)
+            if collision[0]:
+                break
             self.x += 1
-            self.draw(screen)
+            i += 1
+        self.draw(screen)

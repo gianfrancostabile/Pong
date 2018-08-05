@@ -40,10 +40,10 @@ class Screen(object):
         yellow = (255, 255, 0)
         width_bar, height_bar = 70, 10
 
-        pos_one = Bar(int(self.width * 0.1), int(self.height * 0.9), width_bar, height_bar, 1, red)
-        pos_two = Bar(int(self.width * 0.1), int(self.height * 0.1) - height_bar, width_bar, height_bar, 2, blue)
-        pos_three = Bar(int(self.width * 0.1) - height_bar, int(self.height * 0.1), height_bar, width_bar, 3, green)
-        pos_four = Bar(int(self.width * 0.9), int(self.height * 0.1), height_bar, width_bar, 4, yellow)
+        pos_one = Bar(int(self.width * 0.5) - (width_bar/2), int(self.height * 0.9), width_bar, height_bar, 1, red)
+        pos_two = Bar(int(self.width * 0.5) - (width_bar/2), int(self.height * 0.1) - height_bar, width_bar, height_bar, 2, blue)
+        pos_three = Bar(int(self.width * 0.1) - height_bar, int(self.height * 0.5) - (width_bar/2), height_bar, width_bar, 3, green)
+        pos_four = Bar(int(self.width * 0.9), int(self.height * 0.5) - (width_bar/2), height_bar, width_bar, 4, yellow)
 
         try:
             self.players.append(Player("Player 1", pos_one))

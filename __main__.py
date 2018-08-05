@@ -23,11 +23,11 @@ def main():
         screen.move_ball()
         out = screen.check_ball_out()
 
-        if out:
+        """if out:
             running = False
             pygame.quit()
             quit()
-
+"""
         time.sleep(0.01)
 
 

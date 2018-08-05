@@ -2,10 +2,9 @@
 import pygame
 
 
-class Frame(pygame.sprite.Sprite):
+class Frame(object):
 
     def __init__(self, x, y, width, height, color):
-        pygame.sprite.Sprite.__init__(self)
         self.x = x
         self.y = y
         self.width = width
