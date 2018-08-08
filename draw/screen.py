@@ -1,58 +1,32 @@
 
 import pygame
 import os
-from .corner import Corner
 from .ball import Ball
-from .bar import Bar
-from player import Player
-from exceptions.excessplayerexception import ExcessPlayerException
 
 os.environ['SDL_VIDEO_CENTERED'] = '1'
 
 
 class Screen(object):
 
-    def __init__(self):
-        self.width = 500
-        self.height = 500
-        self.screen = pygame.display.set_mode((self.width, self.height))
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+        self.screen = pygame.display.set_mode((width, height))
         self.players = list()
         self.corners = list()
         self.ball = None
 
-    def create_screen(self):
-        self.add_corners()
-        self.add_players()
+    def draw_screen(self):
+        self.draw_corners()
+        self.draw_players()
         self.add_ball()
         return self.screen
 
-    def add_corners(self):
-        self.corners.append(Corner(0, 0, int(self.width*0.1), int(self.height*0.1), (128, 128, 128)))
-        self.corners.append(Corner(int(self.width*0.9), 0, int(self.width*0.1), int(self.height*0.1), (128, 128, 128)))
-        self.corners.append(Corner(0, int(self.height*0.9), int(self.width*0.1), int(self.height*0.1), (128, 128, 128)))
-        self.corners.append(Corner(int(self.width*0.9), int(self.height*0.9), int(self.width*0.1), int(self.height*0.1), (128, 128, 128)))
-        self.draw_corners()
+    def add_corners(self, corners):
+        self.corners = corners
 
-    def add_players(self):
-        red = (255, 0, 0)
-        blue = (0, 0, 255)
-        green = (0, 255, 0)
-        yellow = (255, 255, 0)
-        width_bar, height_bar = 70, 10
-
-        pos_one = Bar(int(self.width * 0.5) - (width_bar/2), int(self.height * 0.9), width_bar, height_bar, 1, red)
-        pos_two = Bar(int(self.width * 0.5) - (width_bar/2), int(self.height * 0.1) - height_bar, width_bar, height_bar, 2, blue)
-        pos_three = Bar(int(self.width * 0.1) - height_bar, int(self.height * 0.5) - (width_bar/2), height_bar, width_bar, 3, green)
-        pos_four = Bar(int(self.width * 0.9), int(self.height * 0.5) - (width_bar/2), height_bar, width_bar, 4, yellow)
-
-        try:
-            self.players.append(Player("Player 1", pos_one))
-            self.players.append(Player("Player 2", pos_two))
-            self.players.append(Player("Player 3", pos_three))
-            self.players.append(Player("Player 4", pos_four))
-        except ExcessPlayerException as epe:
-            print(epe)
-        self.draw_players()
+    def add_players(self, players):
+        self.players = players
 
     def add_ball(self):
         self.ball = Ball((255, 255, 255))
@@ -110,11 +84,15 @@ class Screen(object):
     def check_ball_out(self):
         out = False
         if 0 > (self.ball.x + self.ball.width):
+            self.get_player_in_position(3).remove_life()
             out = True
         elif self.ball.x > self.width:
+            self.get_player_in_position(4).remove_life()
             out = True
         elif 0 > (self.ball.y + self.ball.height):
+            self.get_player_in_position(2).remove_life()
             out = True
         elif self.ball.y > self.height:
+            self.get_player_in_position(1).remove_life()
             out = True
         return out

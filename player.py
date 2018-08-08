@@ -12,8 +12,8 @@ class Player(object):
         if 4 > PLAYER_COUNTER >= 0:
             self.name = name
             self.bar = bar
-            self.score = 0
             self.lives = 5
+            self.is_dead = False
 
             PLAYER_COUNTER += 1
         else:
@@ -26,3 +26,10 @@ class Player(object):
         elif key_pressed == "RIGHT":
             corner_right = corners_between[1]
             self.bar.move_right(screen, corner_right)
+
+    def remove_life(self):
+        if not self.is_dead:
+            self.lives -= 1
+
+            if self.lives <= -1:
+                self.is_dead = True
