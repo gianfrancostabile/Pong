@@ -38,7 +38,10 @@ class Screen(object):
 
     def draw_players(self):
         for player in self.players:
-            player.bar.draw(self.screen)
+            if player.is_dead:
+                player.wall.draw(self.screen)
+            else:
+                player.bar.draw(self.screen)
 
     def move_ball(self):
         frames_collision = self.players + self.corners
@@ -96,3 +99,22 @@ class Screen(object):
             self.get_player_in_position(1).remove_life()
             out = True
         return out
+
+    def center_players(self):
+        self.get_player_in_position(1).bar.x = int(self.width * 0.5) - (self.get_player_in_position(1).bar.width / 2)
+        self.get_player_in_position(1).bar.y = int(self.height * 0.9)
+        self.get_player_in_position(2).bar.x = int(self.width * 0.5) - (self.get_player_in_position(2).bar.width / 2)
+        self.get_player_in_position(2).bar.y = int(self.height * 0.1) - self.get_player_in_position(2).bar.height
+        self.get_player_in_position(3).bar.x = int(self.width * 0.1) - self.get_player_in_position(2).bar.height
+        self.get_player_in_position(3).bar.y = int(self.height * 0.5) - (self.get_player_in_position(2).bar.width / 2)
+        self.get_player_in_position(4).bar.x = int(self.width * 0.9)
+        self.get_player_in_position(4).bar.y = int(self.height * 0.5) - (self.get_player_in_position(2).bar.width / 2)
+
+    def clean_screen(self):
+        self.screen.fill((0, 0, 0))
+        pygame.display.flip()
+
+    def reset_screen(self):
+        self.clean_screen()
+        self.center_players()
+        self.draw_screen()

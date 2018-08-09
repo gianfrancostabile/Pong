@@ -6,12 +6,13 @@ PLAYER_COUNTER = 0
 
 class Player(object):
 
-    def __init__(self, name, bar):
+    def __init__(self, name, bar, wall):
         global PLAYER_COUNTER
 
         if 4 > PLAYER_COUNTER >= 0:
             self.name = name
             self.bar = bar
+            self.wall = wall
             self.lives = 5
             self.is_dead = False
 

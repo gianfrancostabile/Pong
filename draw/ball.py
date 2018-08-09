@@ -45,7 +45,10 @@ class Ball(Frame):
         while counter_x < moves_x or counter_y < moves_y and not collision[0]:
             for frame in frames:
                 if isinstance(frame, Player):
-                    frame = frame.bar
+                    if frame.is_dead:
+                        frame = frame.wall
+                    else:
+                        frame = frame.bar
 
                 collision = frame.is_colliding(self)
                 if collision[0]:
